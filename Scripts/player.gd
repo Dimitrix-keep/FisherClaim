@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const SPEED = 50.0
-var RUN_SPEED_BONUS = 70 # El extra de velocidad
+var RUN_SPEED_BONUS = 40 # El extra de velocidad
 var gravity = 600 # Nota: 60 suele ser muy poco para Godot 4, lo subí a 600
 
 
