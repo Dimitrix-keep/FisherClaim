@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://bu2ew2ug7kbb0"]
+[gd_scene load_steps=7 format=4 uid="uid://bu2ew2ug7kbb0"]
 
 [ext_resource type="Texture2D" uid="uid://dctkb5l71uenv" path="res://Backgrounds/TileMap-export.png" id="1_lbiw5"]
 [ext_resource type="PackedScene" uid="uid://da67dne4t3v67" path="res://Scenes/Player.tscn" id="2_qgw4m"]
@@ -39,6 +39,9 @@ sources/1 = SubResource("TileSetAtlasSource_qgw4m")
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qgw4m"]
 distance = -18.0
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_622qf"]
+distance = -112.00779
+
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -46,7 +49,7 @@ tile_map_data = PackedByteArray("AAAIAAIAAQAFAAQAAAAJAAIAAQAFAAQAAAAKAAIAAQAFAAQ
 tile_set = SubResource("TileSet_622qf")
 
 [node name="Node2D" parent="." instance=ExtResource("2_qgw4m")]
-position = Vector2(-100, -1)
+position = Vector2(-100, -5)
 
 [node name="Camera2D" type="Camera2D" parent="Node2D"]
 position = Vector2(129, -3)
@@ -55,5 +58,9 @@ zoom = Vector2(3, 3)
 [node name="Area2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -3)
+position = Vector2(-2, 0)
 shape = SubResource("WorldBoundaryShape2D_qgw4m")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+rotation = -1.566352
+shape = SubResource("WorldBoundaryShape2D_622qf")

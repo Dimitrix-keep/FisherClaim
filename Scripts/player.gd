@@ -1,40 +1,38 @@
 extends CharacterBody2D
 
+const SPEED = 50.0
+var RUN_SPEED_BONUS = 70 # El extra de velocidad
+var gravity = 600 # Nota: 60 suele ser muy poco para Godot 4, lo subí a 600
 
-const SPEED = 50
 
-
-
-
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
+func _physics_process(_delta):
+	# 1. Gravedad
 	if not is_on_floor():
-		velocity += get_gravity() * delta
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
-		
+		velocity.y += gravity * _delta
+
+	# 2. Detectar Dirección y si está corriendo
+	var direction = Input.get_axis("left", "right")
+	var esta_corriendo = Input.is_action_pressed("run") and direction != 0
+
+	# 3. Calcular Velocidad
+	if direction != 0:
+		var velocidad_final = SPEED
+		if esta_corriendo:
+			velocidad_final += RUN_SPEED_BONUS
+		velocity.x = direction * velocidad_final
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		
-	_animaciones()
+	
+	_animation(direction, esta_corriendo)
 	move_and_slide()
 	
-func _animaciones():
-	# 1. Usamos is_action_pressed para que la animación dure mientras mantienes la tecla
-	var moviendo := Input.get_axis("ui_left", "ui_right")
-	
-	if moviendo != 0:
-		$AnimatedSprite2D.play("walking") # Método correcto para reproducir
-		
-		# 2. Control del flip (espejo)
-		if moviendo < 0:
-			$AnimatedSprite2D.flip_h = true  # Mira a la izquierda
+func _animation(direction, esta_corriendo):
+	if direction != 0:
+		if esta_corriendo:
+			$AnimatedSprite2D.play("running") # Asegúrate de tener esta animación
 		else:
-			$AnimatedSprite2D.flip_h = false # Mira a la derecha
-			
+			$AnimatedSprite2D.play("walking")
 		
+		$AnimatedSprite2D.flip_h = (direction < 0)
 	else:
 		$AnimatedSprite2D.play("idle")
-		# print("Quieto")
