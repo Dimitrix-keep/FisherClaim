@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://da67dne4t3v67"]
+[gd_scene load_steps=63 format=3 uid="uid://da67dne4t3v67"]
 
 [ext_resource type="Script" uid="uid://b0e44qmqbesjo" path="res://Scripts/player/Player.gd" id="1_nn08x"]
 [ext_resource type="Texture2D" uid="uid://cwcast62udjr4" path="res://Animaciones/Pescador-Sheet.png" id="1_rpqav"]
@@ -495,19 +495,6 @@ _data = {
 &"walk": SubResource("Animation_megsn")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5ixxa"]
-animation = &"cast"
-
-[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_nn08x"]
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_bhhdu"]
-nodes/output/position = Vector2(820, 180)
-nodes/Animacion/node = SubResource("AnimationNodeAnimation_5ixxa")
-nodes/Animacion/position = Vector2(360.58002, 162.14001)
-nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_nn08x")
-nodes/TimeScale/position = Vector2(620, 160)
-node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animacion"]
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dewec"]
 animation = &"idle"
 
@@ -532,20 +519,6 @@ nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_gntrk")
 nodes/TimeScale/position = Vector2(482.90002, 170.5)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animacion"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ksbbd"]
-animation = &"reel"
-
-[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_52ee3"]
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_glx4g"]
-graph_offset = Vector2(12.403931, 66.484375)
-nodes/output/position = Vector2(760, 140)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_ksbbd")
-nodes/Animation/position = Vector2(300, 140)
-nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_52ee3")
-nodes/TimeScale/position = Vector2(540, 120)
-node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
-
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_5ixxa"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nn08x"]
@@ -561,20 +534,6 @@ nodes/TimeScale/position = Vector2(492, 135)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"walk"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1e7my"]
-advance_condition = &"is_ideling"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lslt6"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"is_fishing"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ulo2v"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"is_reeling"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1iu4k"]
-switch_mode = 2
 advance_mode = 2
 advance_condition = &"is_ideling"
 
@@ -586,21 +545,24 @@ advance_condition = &"walk"
 advance_mode = 2
 advance_condition = &"idle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nn08x"]
+advance_mode = 2
+advance_condition = &"is_idel_fishing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_52ee3"]
+advance_condition = &"is_ideling"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_arntx"]
 states/End/position = Vector2(1069, 294)
 states/Start/position = Vector2(122, 300)
-states/cast/node = SubResource("AnimationNodeBlendTree_bhhdu")
-states/cast/position = Vector2(588, 177)
 states/idle/node = SubResource("AnimationNodeBlendTree_dewec")
 states/idle/position = Vector2(588, 300)
 states/idle_fishing/node = SubResource("AnimationNodeBlendTree_yoq75")
-states/idle_fishing/position = Vector2(850, 177)
-states/reel/node = SubResource("AnimationNodeBlendTree_glx4g")
-states/reel/position = Vector2(850, 300)
+states/idle_fishing/position = Vector2(588, 170)
 states/walk/node = SubResource("AnimationNodeBlendTree_52ee3")
 states/walk/position = Vector2(588, 404)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1e7my"), "cast", "idle_fishing", SubResource("AnimationNodeStateMachineTransition_lslt6"), "idle_fishing", "reel", SubResource("AnimationNodeStateMachineTransition_ulo2v"), "reel", "idle", SubResource("AnimationNodeStateMachineTransition_1iu4k"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_gntrk"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_dewec")]
-graph_offset = Vector2(-21, 168)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1e7my"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_gntrk"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_dewec"), "idle", "idle_fishing", SubResource("AnimationNodeStateMachineTransition_nn08x"), "idle_fishing", "idle", SubResource("AnimationNodeStateMachineTransition_52ee3")]
+graph_offset = Vector2(112, 102)
 
 [node name="Player" type="CharacterBody2D"]
 floor_stop_on_slope = false
@@ -611,8 +573,9 @@ z_as_relative = false
 position = Vector2(-4.499999, -2.2500007)
 scale = Vector2(0.74000007, 0.7734375)
 sprite_frames = SubResource("SpriteFrames_lslt6")
-animation = &"idle"
+animation = &"idle_fishing"
 autoplay = "idle"
+frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-5, -1)
@@ -628,11 +591,8 @@ tree_root = SubResource("AnimationNodeStateMachine_arntx")
 advance_expression_base_node = NodePath("../AnimatedSprite2D")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/idle = false
-parameters/conditions/is_fishing = true
+parameters/conditions/is_idel_fishing = false
 parameters/conditions/is_ideling = true
-parameters/conditions/is_reeling = true
 parameters/conditions/walk = false
-parameters/cast/TimeScale/scale = 1.0
-parameters/idle_fishing/TimeScale/scale = 1.0
-parameters/reel/TimeScale/scale = 0.014285714427630106
+parameters/idle_fishing/TimeScale/scale = 0.8999999999999986
 parameters/walk/TimeScale/scale = 1.1000000000000014

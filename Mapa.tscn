@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://bu2ew2ug7kbb0"]
+[gd_scene load_steps=17 format=4 uid="uid://bu2ew2ug7kbb0"]
 
 [ext_resource type="Texture2D" uid="uid://dctkb5l71uenv" path="res://Backgrounds/TileMap-export.png" id="1_lbiw5"]
 [ext_resource type="PackedScene" uid="uid://da67dne4t3v67" path="res://Scenes/Player.tscn" id="2_qgw4m"]
@@ -42,6 +42,8 @@ texture = ExtResource("1_lbiw5")
 [sub_resource type="TileSet" id="TileSet_622qf"]
 sources/1 = SubResource("TileSetAtlasSource_qgw4m")
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_udyo2"]
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qgw4m"]
 distance = -18.0
 
@@ -80,8 +82,11 @@ shader_parameter/WDSize = 1.20000003278258
 shader_parameter/WDSpeed = 1.0
 shader_parameter/tiling = Vector2(1.164, 1)
 shader_parameter/offSetSpeed = Vector2(0.035, 0.01)
-shader_parameter/backGroundDirX = -0.006999997072620001
+shader_parameter/backGroundDirX = -0.00699999707262
 shader_parameter/backGroundDirY = 0.08000000705988
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rml5n"]
+size = Vector2(1, 7)
 
 [node name="Node2D" type="Node2D"]
 
@@ -98,9 +103,10 @@ rotation = 0.006968532
 zoom = Vector2(5, 5)
 
 [node name="Area2D" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_udyo2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-2, 0)
+position = Vector2(-8, 0)
 shape = SubResource("WorldBoundaryShape2D_qgw4m")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
@@ -118,3 +124,15 @@ material = SubResource("ShaderMaterial_622qf")
 position = Vector2(246.94588, 74.360176)
 scale = Vector2(4.1085296, 0.72874725)
 texture = ExtResource("4_rml5n")
+
+[node name="PuertoArea" type="Area2D" parent="."]
+position = Vector2(18, -45)
+
+[node name="PuertoArea2" type="CollisionShape2D" parent="PuertoArea"]
+position = Vector2(87, 58)
+rotation = -0.0016311586
+shape = SubResource("RectangleShape2D_rml5n")
+debug_color = Color(0.9779586, 0, 0.40373692, 0.41960785)
+
+[connection signal="body_shape_entered" from="PuertoArea" to="Node2D" method="_on_puerto_area_body_shape_entered"]
+[connection signal="body_shape_exited" from="PuertoArea" to="Node2D" method="_on_puerto_area_body_shape_exited"]
