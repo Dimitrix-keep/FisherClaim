@@ -56,7 +56,7 @@ tile_map_data = PackedByteArray("AAAIAAIAAQAFAAQAAAAJAAIAAQAFAAQAAAAKAAIAAQAFAAQ
 tile_set = SubResource("TileSet_622qf")
 
 [node name="Node2D" parent="." instance=ExtResource("2_qgw4m")]
-position = Vector2(-51, 6)
+position = Vector2(-33, -5)
 
 [node name="Camera2D" type="Camera2D" parent="Node2D"]
 position = Vector2(-5, -22)
@@ -70,7 +70,6 @@ position = Vector2(-2, 0)
 shape = SubResource("WorldBoundaryShape2D_qgw4m")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-5.0000005, 9.313226e-10)
 rotation = -1.5728723
 shape = SubResource("WorldBoundaryShape2D_622qf")
 
