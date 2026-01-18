@@ -264,7 +264,7 @@ script = ExtResource("1_7cr2c")
 [node name="Inventory" parent="." instance=ExtResource("7_exdis")]
 
 [node name="sky" type="Sprite2D" parent="."]
-position = Vector2(-66, -76)
+position = Vector2(-66, -66)
 scale = Vector2(1.2265625, 0.51855475)
 texture = ExtResource("7_a5oks")
 

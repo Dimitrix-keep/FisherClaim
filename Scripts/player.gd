@@ -141,7 +141,7 @@ func _set_state(new_state: PlayerState) -> void:
 
 		# Si entra en REEL, espera 0.5s y vuelve a IDLE
 		PlayerState.REEL:
-			await get_tree().create_timer(0.5).timeout
+			await get_tree().create_timer(0.7).timeout
 			_set_state(PlayerState.IDLE)
 
 # PESCA: Timer de mordida
