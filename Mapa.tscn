@@ -215,7 +215,7 @@ sources/1 = SubResource("TileSetAtlasSource_qgw4m")
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_udyo2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_622qf"]
-distance = -112.00779
+distance = -111.999756
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rml5n"]
 distance = 6.0
@@ -285,13 +285,9 @@ tile_set = SubResource("TileSet_622qf")
 [node name="Tienda" parent="." instance=ExtResource("3_spsvo")]
 position = Vector2(-392, -47)
 
-[node name="Node2D" parent="." instance=ExtResource("2_qgw4m")]
-position = Vector2(-52, 6)
+[node name="Player" parent="." instance=ExtResource("2_qgw4m")]
 
-[node name="Camera2D" type="Camera2D" parent="Node2D"]
-position = Vector2(-5, -22)
-rotation = 0.006968532
-zoom = Vector2(4.79, 4.79)
+[node name="Camera2D" type="Camera2D" parent="Player"]
 
 [node name="Area2D" type="StaticBody2D" parent="."]
 position = Vector2(0, -3)
@@ -322,5 +318,5 @@ rotation = -0.0016311586
 shape = SubResource("RectangleShape2D_rml5n")
 debug_color = Color(0.9779586, 0, 0.40373692, 0.41960785)
 
-[connection signal="body_shape_entered" from="PuertoArea" to="Node2D" method="_on_puerto_area_body_shape_entered"]
-[connection signal="body_shape_exited" from="PuertoArea" to="Node2D" method="_on_puerto_area_body_shape_exited"]
+[connection signal="body_entered" from="PuertoArea" to="Player" method="_on_PuertoArea_body_entered"]
+[connection signal="body_exited" from="PuertoArea" to="Player" method="_on_PuertoArea_body_exited"]

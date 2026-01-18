@@ -1,6 +1,6 @@
-[gd_scene load_steps=56 format=3 uid="uid://da67dne4t3v67"]
+[gd_scene load_steps=52 format=3 uid="uid://da67dne4t3v67"]
 
-[ext_resource type="Script" uid="uid://bhplvpof5tjar" path="res://Scripts/player.gd" id="1_gntrk"]
+[ext_resource type="Script" uid="uid://dsomrbju5yn7x" path="res://Scripts/player/Player.gd" id="1_nn08x"]
 [ext_resource type="Texture2D" uid="uid://cwcast62udjr4" path="res://Animaciones/Pescador-Sheet.png" id="1_rpqav"]
 [ext_resource type="Texture2D" uid="uid://8a7iwth4uwl0" path="res://Animaciones/idle_pescando-Sheet.png" id="3_glx4g"]
 
@@ -207,15 +207,11 @@ height = 22.0
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dewec"]
 animation = &"cast"
 
-[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_dewec"]
-
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5ixxa"]
-nodes/output/position = Vector2(760, 40)
+nodes/output/position = Vector2(520, 140)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_dewec")
-nodes/Animation/position = Vector2(160, 40)
-nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_dewec")
-nodes/TimeScale/position = Vector2(480, 40)
-node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+nodes/Animation/position = Vector2(246, 136)
+node_connections = [&"output", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nn08x"]
 animation = &"idle_fishing"
@@ -229,16 +225,11 @@ node_connections = [&"output", 0, &"Animation"]
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gntrk"]
 animation = &"idle"
 
-[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gntrk"]
-
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dewec"]
-graph_offset = Vector2(0, -24)
 nodes/output/position = Vector2(640, 80)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_gntrk")
-nodes/Animation/position = Vector2(80, 40)
-nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_gntrk")
-nodes/TimeScale/position = Vector2(415, 67)
-node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+nodes/Animation/position = Vector2(260, 80)
+node_connections = [&"output", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_52ee3"]
 animation = &"reel"
@@ -249,25 +240,14 @@ nodes/Animation/node = SubResource("AnimationNodeAnimation_52ee3")
 nodes/Animation/position = Vector2(279, 177)
 node_connections = [&"output", 0, &"Animation"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5ixxa"]
-animation = &"walk"
-
-[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_nn08x"]
-
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_yoq75"]
-nodes/output/position = Vector2(620, 80)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_5ixxa")
-nodes/Animation/position = Vector2(245, 96)
-nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_nn08x")
-nodes/TimeScale/position = Vector2(440, 60)
-node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ksbbd"]
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_glx4g"]
 advance_mode = 2
-advance_condition = &"is_walk"
+advance_condition = &"walk"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_miouo"]
 advance_mode = 2
@@ -292,15 +272,15 @@ states/Start/position = Vector2(219, 100)
 states/cast/node = SubResource("AnimationNodeBlendTree_5ixxa")
 states/cast/position = Vector2(369, -10)
 states/fishing/node = SubResource("AnimationNodeBlendTree_52ee3")
-states/fishing/position = Vector2(551, -10)
+states/fishing/position = Vector2(640, -10)
 states/idle/node = SubResource("AnimationNodeBlendTree_dewec")
 states/idle/position = Vector2(369, 100)
 states/reel/node = SubResource("AnimationNodeBlendTree_megsn")
-states/reel/position = Vector2(551, 93)
+states/reel/position = Vector2(640, 82)
 states/walk/node = SubResource("AnimationNodeBlendTree_yoq75")
-states/walk/position = Vector2(369, 191)
+states/walk/position = Vector2(369, 190)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ksbbd"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_glx4g"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_miouo"), "fishing", "reel", SubResource("AnimationNodeStateMachineTransition_o3h8g"), "idle", "cast", SubResource("AnimationNodeStateMachineTransition_arntx"), "cast", "fishing", SubResource("AnimationNodeStateMachineTransition_lslt6")]
-graph_offset = Vector2(115, -52)
+graph_offset = Vector2(90, -17)
 
 [sub_resource type="Animation" id="Animation_gntrk"]
 length = 0.8
@@ -453,30 +433,25 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 floor_stop_on_slope = false
-script = ExtResource("1_gntrk")
+script = ExtResource("1_nn08x")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_nn08x")
-animation = &"idle"
+animation = &""
 autoplay = "idle"
-frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 0)
 shape = SubResource("CapsuleShape2D_ulo2v")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-deterministic = false
 tree_root = SubResource("AnimationNodeStateMachine_rpqav")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/cast = false
 parameters/conditions/fhising = false
 parameters/conditions/idle = false
-parameters/conditions/is_walk = false
 parameters/conditions/reel = false
-parameters/cast/TimeScale/scale = 1.0
-parameters/idle/TimeScale/scale = 1.0
-parameters/walk/TimeScale/scale = 1.0
+parameters/conditions/walk = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
