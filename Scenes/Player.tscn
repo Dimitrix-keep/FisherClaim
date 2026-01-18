@@ -459,7 +459,7 @@ script = ExtResource("1_gntrk")
 sprite_frames = SubResource("SpriteFrames_nn08x")
 animation = &"idle"
 autoplay = "idle"
-frame = 3
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 0)
@@ -484,3 +484,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_gntrk")
 }
 movie_quit_on_finish = true
+
+[node name="FishSpawn" type="Node2D" parent="."]

@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://c041ha0014fjq"]
+
+[ext_resource type="Script" uid="uid://cpu4ay6hap6mr" path="res://Scripts/InventoryUI.gd" id="2_k5gp2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wdn4f"]
+font_color = Color(0.5424644, 0.29539815, 1.92523e-07, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_k5gp2"]
+font_color = Color(0, 0.43086162, 0.43118122, 1)
+
+[node name="Inventory" type="CanvasLayer"]
+script = ExtResource("2_k5gp2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ItemLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_wdn4f")
+horizontal_alignment = 1
+
+[node name="AmountLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_k5gp2")
+horizontal_alignment = 1
